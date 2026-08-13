@@ -4,17 +4,3 @@ allowBuilds:
   esbuild: true
   workerd: true
 
-# ⚠️ TEMPORARY, and deleted the day 0.1.0 publishes. The emitters are not on npm yet, so `^0.1.0` in
-# package.json cannot resolve. Overrides rather than `file:` specifiers in the manifest, for two
-# reasons: the manifest then reads exactly as a consumer's does and needs no edit at publish time,
-# and `typespec-http-zod` is a TRANSITIVE dependency of `typespec-hono` — a direct-dependency
-# specifier could not have reached it, which is why `pnpm add <tarball>` fails here with a 404.
-#
-# Build the tarballs first:
-#   (cd ../typespec-http-zod && pnpm build && pnpm pack)
-#   (cd ../typespec-hono && pnpm build && pnpm pack)
-#   (cd ../typespec-openapi-document && pnpm build && pnpm pack)
-overrides:
-  typespec-http-zod: "file:../typespec-http-zod/typespec-http-zod-0.1.0.tgz"
-  typespec-hono: "file:../typespec-hono/typespec-hono-0.1.0.tgz"
-  typespec-openapi-document: "file:../typespec-openapi-document/typespec-openapi-document-0.1.0.tgz"
