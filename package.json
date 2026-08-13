@@ -1,0 +1,32 @@
+{
+	"name": "typespec-hono-example",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"generate": "tsp compile .",
+		"typecheck": "tsc --noEmit",
+		"bundle": "wrangler deploy --dry-run --outdir=.bundle",
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy"
+	},
+	"dependencies": {
+		"@hono/swagger-ui": "^0.6.1",
+		"@hono/zod-validator": "^0.8.0",
+		"@scalar/hono-api-reference": "^0.11.13",
+		"hono": "^4.13.1",
+		"typespec-hono": "^0.1.0",
+		"typespec-openapi-document": "^0.1.0",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20250109.0",
+		"@typespec/compiler": "1.15.0",
+		"@typespec/http": "1.15.0",
+		"@typespec/openapi": "1.15.0",
+		"@typespec/openapi3": "1.15.0",
+		"typescript": "~7.0.2",
+		"wrangler": "^4.42.0"
+	},
+	"description": "A Cloudflare Worker built entirely from a TypeSpec definition by the three emitters."
+}

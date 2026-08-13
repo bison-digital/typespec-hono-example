@@ -1,0 +1,8 @@
+{
+	"name": "ledger-acceptance",
+	// Pinned: the token can see several accounts, and a deploy should never guess which.
+	"account_id": "cb9895f3d9d04fa21ec491fb1c5fe1ec",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-01",
+	"observability": { "enabled": true }
+}
