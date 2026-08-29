@@ -12,10 +12,10 @@
 	},
 	"dependencies": {
 		"@hono/swagger-ui": "^0.6.1",
-		"@hono/zod-validator": "^0.8.0",
+		"@hono/zod-validator": "^0.9.0",
 		"@scalar/hono-api-reference": "^0.11.13",
-		"hono": "^4.13.1",
-		"zod": "^4.4.3"
+		"hono": "^4.13.5",
+		"zod": "^4.5.2"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250109.0",
@@ -24,8 +24,8 @@
 		"@typespec/openapi": "1.15.0",
 		"@typespec/openapi3": "1.15.0",
 		"typescript": "~7.0.2",
-		"typespec-hono": "^0.2.0",
-		"typespec-openapi-document": "^0.1.1",
+		"typespec-hono": "^0.21.0",
+		"typespec-openapi-document": "^0.4.0",
 		"wrangler": "^4.42.0"
 	},
 	"description": "A Cloudflare Worker built entirely from a TypeSpec definition by the three emitters."

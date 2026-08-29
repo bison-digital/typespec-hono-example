@@ -10,19 +10,19 @@ importers:
     dependencies:
       '@hono/swagger-ui':
         specifier: ^0.6.1
-        version: 0.6.1(hono@4.13.2)
+        version: 0.6.1(hono@4.13.5)
       '@hono/zod-validator':
-        specifier: ^0.8.0
-        version: 0.8.0(hono@4.13.2)(zod@4.4.3)
+        specifier: ^0.9.0
+        version: 0.9.0(hono@4.13.5)(zod@4.5.2)
       '@scalar/hono-api-reference':
         specifier: ^0.11.13
-        version: 0.11.14(hono@4.13.2)
+        version: 0.11.14(hono@4.13.5)
       hono:
-        specifier: ^4.13.1
-        version: 4.13.2
+        specifier: ^4.13.5
+        version: 4.13.5
       zod:
-        specifier: ^4.4.3
-        version: 4.4.3
+        specifier: ^4.5.2
+        version: 4.5.2
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20250109.0
@@ -43,11 +43,11 @@ importers:
         specifier: ~7.0.2
         version: 7.0.2
       typespec-hono:
-        specifier: ^0.2.0
-        version: 0.2.0(@hono/zod-validator@0.8.0(hono@4.13.2)(zod@4.4.3))(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(hono@4.13.2)(zod@4.4.3)
+        specifier: ^0.21.0
+        version: 0.21.0(@hono/zod-validator@0.9.0(hono@4.13.5)(zod@4.5.2))(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(hono@4.13.5)(zod@4.5.2)
       typespec-openapi-document:
-        specifier: ^0.1.1
-        version: 0.1.1(@typespec/compiler@1.15.0)(@typespec/openapi3@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))))
+        specifier: ^0.4.0
+        version: 0.4.0(@typespec/compiler@1.15.0)(@typespec/openapi3@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))))
       wrangler:
         specifier: ^4.42.0
         version: 4.123.0(@cloudflare/workers-types@4.20260702.1)
@@ -276,10 +276,10 @@ packages:
     peerDependencies:
       hono: '>=4.0.0'
 
-  '@hono/zod-validator@0.8.0':
-    resolution: {integrity: sha512-5uS4S1/LKtZQYvD4BtpPUFkOv8d1wNxHHrChm26buMiEYc1FrHWvDUaKVBwkiVtvSExHSpLGDvcnpI2Copyj9w==}
+  '@hono/zod-validator@0.9.0':
+    resolution: {integrity: sha512-n0ZSXmCiHVIp4Y5wlOOyZCeTd/rsawA/qW1cipB8QOYKZ9N8Tk0nZUZCXho9cu374AN4JpDNKioNKBJ/W+LBug==}
     peerDependencies:
-      hono: '>=4.10.0'
+      hono: '>=4.11.2'
       zod: ^3.25.0 || ^4.0.0
 
   '@img/colour@1.1.0':
@@ -929,8 +929,8 @@ packages:
     resolution: {integrity: sha512-QRbvDIbx6YklUe6RxeTeleMR0yv3cYH6PsPZHcnVn7xv7zO1BHN8r0XETu8n6Ye3Q+ahtSarc3WgtNWmehIBfA==}
     engines: {node: '>=18'}
 
-  hono@4.13.2:
-    resolution: {integrity: sha512-JydRilDRkYBQMt9qR9U92mXxmbGqsqSn/IKOrh4e7/gEbn+0zSr8igTu0obwJoNGN4sez28DIql7FBHWydoJpA==}
+  hono@4.13.5:
+    resolution: {integrity: sha512-O6+/eCYRkzzzy0rPWwKLiGBR1nFuUPZynnwjxN1MBA62NNqbT0wQEzQyK2gSO5yDIDB336sXQleAhOHrzlYyKw==}
     engines: {node: '>=16.9.0'}
 
   iconv-lite@0.7.3:
@@ -1067,18 +1067,18 @@ packages:
     engines: {node: '>=16.20.0'}
     hasBin: true
 
-  typespec-hono@0.2.0:
-    resolution: {integrity: sha512-MmEhyXQTNZPQSvAOtVL6FBBh48dcju04aqS9BAbFCtAtOIIYUorA+xxayGqsRCMuL0kCHX+vFkE3KQb4TonHNQ==}
+  typespec-hono@0.21.0:
+    resolution: {integrity: sha512-2UVDvUKcdSlS5G845f9sykin113doMHyVs9FQMezPJwwAL97a+EqiBZUQ6X8M5Sm1YMhNdagRhDN7NZKroxz7A==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
-      '@hono/zod-validator': ^0.8.0
+      '@hono/zod-validator': ^0.8.0 || ^0.9.0
       '@typespec/compiler': ^1.15.0
       '@typespec/http': ^1.15.0
       hono: ^4.12.0
-      zod: ^4.0.0
+      zod: ^4.5.0
 
-  typespec-http-zod@0.2.0:
-    resolution: {integrity: sha512-lb/MH69V4fCHrn80DGde2D+7flm6Eh3RIfSCeNaPTCoBCNc27W/J2/KBSJovrvxCzm//va8BSs0i7eZpi6dqIw==}
+  typespec-http-zod@0.24.0:
+    resolution: {integrity: sha512-RVOxsylE8qZTKMee2B9TuBPvICvUMpj4nYsonUPl6nNZt+8mKTSaiCcIdwiA2mdPPyeACkNMj0DwOEng8Fi2iA==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@typespec/compiler': ^1.15.0
@@ -1086,15 +1086,15 @@ packages:
       '@typespec/openapi': ^1.15.0
       '@typespec/streams': ^0.85.0
       '@typespec/versioning': ^0.85.0
-      zod: ^4.0.0
+      zod: ^4.5.0
     peerDependenciesMeta:
       '@typespec/streams':
         optional: true
       '@typespec/versioning':
         optional: true
 
-  typespec-openapi-document@0.1.1:
-    resolution: {integrity: sha512-TPiRktziMpyahk3+XiCHfR7eGSC/47TIixoMuE1JUMJMHXzEhp9klb+ybdUzijNPYbaeAtBwSHJ+K8Hh3A1C3w==}
+  typespec-openapi-document@0.4.0:
+    resolution: {integrity: sha512-+8VIMtwhkKZY8tt2pH9G/3tPCJQdw1WXqassSIxDnZjRydgw/Ew3vq5I2RfgPIgPYb3OXYqjbJUC6YdI5NOASA==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@typespec/compiler': ^1.15.0
@@ -1188,6 +1188,9 @@ packages:
 
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+
+  zod@4.5.2:
+    resolution: {integrity: sha512-XkYXCol10+ba/6F/cueWV+TezUeOqXW0hdeJt5CdXjTYeAgAQg5N03RQdJ80mhfFE72+pblvYMW4wy2Qp4Qbrg==}
 
 snapshots:
 
@@ -1311,14 +1314,14 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@hono/swagger-ui@0.6.1(hono@4.13.2)':
+  '@hono/swagger-ui@0.6.1(hono@4.13.5)':
     dependencies:
-      hono: 4.13.2
+      hono: 4.13.5
 
-  '@hono/zod-validator@0.8.0(hono@4.13.2)(zod@4.4.3)':
+  '@hono/zod-validator@0.9.0(hono@4.13.5)(zod@4.5.2)':
     dependencies:
-      hono: 4.13.2
-      zod: 4.4.3
+      hono: 4.13.5
+      zod: 4.5.2
 
   '@img/colour@1.1.0': {}
 
@@ -1550,10 +1553,10 @@ snapshots:
 
   '@scalar/helpers@0.10.0': {}
 
-  '@scalar/hono-api-reference@0.11.14(hono@4.13.2)':
+  '@scalar/hono-api-reference@0.11.14(hono@4.13.5)':
     dependencies:
       '@scalar/client-side-rendering': 0.3.7
-      hono: 4.13.2
+      hono: 4.13.5
 
   '@scalar/json-magic@0.12.20':
     dependencies:
@@ -1802,7 +1805,7 @@ snapshots:
 
   get-east-asian-width@1.6.0: {}
 
-  hono@4.13.2: {}
+  hono@4.13.5: {}
 
   iconv-lite@0.7.3:
     dependencies:
@@ -1960,27 +1963,27 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  typespec-hono@0.2.0(@hono/zod-validator@0.8.0(hono@4.13.2)(zod@4.4.3))(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(hono@4.13.2)(zod@4.4.3):
+  typespec-hono@0.21.0(@hono/zod-validator@0.9.0(hono@4.13.5)(zod@4.5.2))(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(hono@4.13.5)(zod@4.5.2):
     dependencies:
-      '@hono/zod-validator': 0.8.0(hono@4.13.2)(zod@4.4.3)
+      '@hono/zod-validator': 0.9.0(hono@4.13.5)(zod@4.5.2)
       '@typespec/compiler': 1.15.0
       '@typespec/http': 1.15.0(@typespec/compiler@1.15.0)
-      hono: 4.13.2
-      typespec-http-zod: 0.2.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(zod@4.4.3)
-      zod: 4.4.3
+      hono: 4.13.5
+      typespec-http-zod: 0.24.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(zod@4.5.2)
+      zod: 4.5.2
     transitivePeerDependencies:
       - '@typespec/openapi'
       - '@typespec/streams'
       - '@typespec/versioning'
 
-  typespec-http-zod@0.2.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(zod@4.4.3):
+  typespec-http-zod@0.24.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))(zod@4.5.2):
     dependencies:
       '@typespec/compiler': 1.15.0
       '@typespec/http': 1.15.0(@typespec/compiler@1.15.0)
       '@typespec/openapi': 1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))
-      zod: 4.4.3
+      zod: 4.5.2
 
-  typespec-openapi-document@0.1.1(@typespec/compiler@1.15.0)(@typespec/openapi3@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))):
+  typespec-openapi-document@0.4.0(@typespec/compiler@1.15.0)(@typespec/openapi3@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))):
     dependencies:
       '@typespec/compiler': 1.15.0
       '@typespec/openapi3': 1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0))(@typespec/openapi@1.15.0(@typespec/compiler@1.15.0)(@typespec/http@1.15.0(@typespec/compiler@1.15.0)))
@@ -2070,3 +2073,5 @@ snapshots:
       youch-core: 0.3.3
 
   zod@4.4.3: {}
+
+  zod@4.5.2: {}

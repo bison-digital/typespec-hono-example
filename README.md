@@ -39,20 +39,8 @@ pnpm dev          # wrangler dev
 pnpm deploy       # wrangler deploy
 ```
 
-> **Before `typespec-hono@0.1.0` is on npm**, `^0.1.0` cannot resolve, so build the tarballs first:
->
-> ```sh
-> (cd ../typespec-http-zod         && pnpm build && pnpm pack)
-> (cd ../typespec-hono             && pnpm build && pnpm pack)
-> (cd ../typespec-openapi-document && pnpm build && pnpm pack)
-> pnpm install
-> ```
->
-> `pnpm-workspace.yaml` redirects all three to those tarballs, and that block is deleted the day
-> 0.1.0 publishes. It is `overrides` rather than `file:` specifiers in `package.json` for two reasons:
-> the manifest then reads exactly as a consumer's does and needs no edit at publish time, and
-> `typespec-http-zod` is a **transitive** dependency of `typespec-hono` — `pnpm add <tarball>` cannot
-> reach it and fails with a 404, which is what happens if you try.
+> Everything installs from npm. The versions here are the published ones, and a fresh
+> `pnpm install` in an empty checkout is the whole setup.
 
 ## What you write, and why it cannot be generated
 

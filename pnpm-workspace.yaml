@@ -1,3 +1,11 @@
+# Freshly published versions are younger than the minimumReleaseAge policy, which refuses them at
+# install. These are deliberate: they are the versions this example exists to demonstrate.
+minimumReleaseAgeExclude:
+  - zod@4.5.2
+  - typespec-hono@0.21.0
+  - typespec-http-zod@0.24.0
+  - typespec-openapi-document@0.4.0
+
 # `allowBuilds` is permanent: esbuild and workerd both run install scripts, and wrangler cannot
 # bundle or serve without them.
 allowBuilds:
