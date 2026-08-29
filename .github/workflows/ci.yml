@@ -1,0 +1,62 @@
+# **This example is the reference consumer, so its job is to fail when a release breaks one.**
+#
+# Two jobs, because they answer different questions. `pinned` asks whether the example as committed
+# is green - an ordinary CI check. `latest` installs whatever is newest on npm and asks whether the
+# emitters have broken a real consumer since. Only the second can catch a bad release, and only the
+# first tells you the example itself is sound, so neither replaces the other.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Daily, so a release that breaks this surfaces within a day even if nobody dispatches it.
+    - cron: "17 7 * * *"
+
+jobs:
+  pinned:
+    name: the example as committed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm generate
+      - run: pnpm typecheck
+      - run: pnpm bundle
+
+  latest:
+    name: against the newest published emitters
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # `minimumReleaseAge=0` because the whole point is to test a release that was just cut, and the
+      # policy exists to stop an unvetted version arriving unnoticed - which is the opposite of this.
+      - name: Install the newest published emitters
+        run: |
+          pnpm --config.minimumReleaseAge=0 update --latest \
+            typespec-hono typespec-openapi-document zod hono @hono/zod-validator
+          node -e "for (const p of ['typespec-hono','typespec-openapi-document','zod','hono']) \
+            console.log(p, require('./node_modules/'+p+'/package.json').version)"
+
+      - run: pnpm generate
+      - run: pnpm typecheck
+      - run: pnpm bundle
+
+      # A warning here is the emitter shipping output it cannot justify, which a consumer sees first.
+      - name: The generated output carries no diagnostics
+        run: |
+          pnpm generate 2>&1 | tee /tmp/gen.log
+          ! grep -qE "warning|error" /tmp/gen.log
