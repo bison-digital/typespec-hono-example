@@ -3,7 +3,9 @@
 minimumReleaseAgeExclude:
   - zod@4.5.2
   - typespec-hono@0.21.0
+  - typespec-hono@0.22.0
   - typespec-http-zod@0.24.0
+  - typespec-http-zod@0.25.0
   - typespec-openapi-document@0.4.0
 
 # `allowBuilds` is permanent: esbuild and workerd both run install scripts, and wrangler cannot
