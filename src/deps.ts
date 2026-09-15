@@ -32,13 +32,18 @@ export const deps: RouteDeps<AppEnv, Caller> = {
 		return undefined;
 	},
 
-	/** Whatever this returns is the `ctx` every handler receives, and its type is inferred from here. */
+	/**
+	 * Whatever this returns is the `ctx` every handler receives, and its type is inferred from here.
+	 *
+	 * `authentication` is what the operation declares: `"none"` admits anyone, `"optional"`
+	 * (`NoAuth | BearerAuth`) recognises a caller who presents a token and admits one who does not,
+	 * and `"required"` refuses a caller without one.
+	 */
 	context: (c, authentication) => {
 		const requestId = c.req.header("x-request-id") ?? crypto.randomUUID();
-		if (authentication === "none") return { subject: "anonymous", requestId };
 		const token = (c.req.header("authorization") ?? "").replace(/^Bearer\s+/i, "");
-		if (token === "") return null;
-		return { subject: token, requestId };
+		if (token !== "" && authentication !== "none") return { subject: token, requestId };
+		return authentication === "required" ? null : { subject: "anonymous", requestId };
 	},
 
 	noContext: (c) => c.json({ code: "unauthenticated", detail: "no caller could be established" }, 401),
