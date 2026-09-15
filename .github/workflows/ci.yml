@@ -34,6 +34,15 @@ jobs:
   latest:
     name: against the newest published emitters
     runs-on: ubuntu-latest
+    # `minimumReleaseAge=0` because the whole point is to test a release that was just cut, and the
+    # policy exists to stop an unvetted version arriving unnoticed - which is the opposite of this.
+    #
+    # Set for the JOB, not on the update command. `pnpm generate` verifies the lockfile against the
+    # policy before it runs a script, so a flag on the update alone let the install through and then
+    # failed the next step on the same version. That failed this job every time one of these packages
+    # was under a day old, including on the day of every release it exists to check.
+    env:
+      pnpm_config_minimum_release_age: "0"
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -42,11 +51,9 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      # `minimumReleaseAge=0` because the whole point is to test a release that was just cut, and the
-      # policy exists to stop an unvetted version arriving unnoticed - which is the opposite of this.
       - name: Install the newest published emitters
         run: |
-          pnpm --config.minimumReleaseAge=0 update --latest \
+          pnpm update --latest \
             typespec-hono typespec-openapi-document zod hono @hono/zod-validator
           node -e "for (const p of ['typespec-hono','typespec-openapi-document','zod','hono']) \
             console.log(p, require('./node_modules/'+p+'/package.json').version)"
