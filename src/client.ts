@@ -13,9 +13,21 @@ import type { LedgerRoutes } from "./index.js";
 
 export const client = hc<LedgerRoutes>("http://localhost:8810");
 
-export async function readAccount(id: string): Promise<unknown> {
+/**
+ * Every response the document declares is typed by its status, so checking `status` narrows the body:
+ * a `200` is an `Account` and a `404` is the `Problem` the document publishes for it.
+ */
+export async function readAccount(id: string): Promise<string> {
 	const response = await client.api.v1.accounts[":accountId"].$get({ param: { accountId: id } });
-	return response.json();
+	if (response.status === 404) {
+		const problem = await response.json();
+		return `${problem.code}: ${problem.detail}`;
+	}
+	if (response.status === 200) {
+		const account = await response.json();
+		return account.name;
+	}
+	return `unexpected ${response.status}`;
 }
 
 export async function listEntries(id: string): Promise<unknown> {

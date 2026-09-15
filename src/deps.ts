@@ -1,26 +1,22 @@
 /**
- * The four things the generated server cannot know, supplied once.
+ * The five things the generated server cannot know, supplied once.
  *
- * ⚠️ **Everything else is generated.** Routing, validation, which validator applies to which target,
- * what status each arm answers — none of it is here. What is left is genuinely application-specific:
- * how a request becomes a caller, and how a result becomes a response.
+ * Everything else is generated: routing, validation, which validator applies to which target, and
+ * which status and body each response a handler returns is served with. What is left is genuinely
+ * application-specific: how a request becomes a caller, and what a refusal looks like.
  */
-import { armFor, type Ctx, type RouteDeps } from "./runtime.js";
+import type { AppEnv, RouteDeps } from "./generated/runtime.gen.js";
+import type { Caller } from "./env.js";
 
-/** A failure the service knows how to render, as opposed to a thrown error. */
-function isFailure(value: unknown): value is { failure: { code: string; detail: string } } {
-	return typeof value === "object" && value !== null && "failure" in value;
-}
-
-export const deps: RouteDeps = {
+export const deps: RouteDeps<AppEnv, Caller> = {
 	/**
-	 * ⚠️ **The requirements are the document's, verbatim** — `[{ BearerAuth: [] }]`. Satisfying any one
-	 * of them authorises; every scheme within one must be satisfied together. This app knows how to
-	 * satisfy `BearerAuth` and refuses anything else rather than waving through a scheme it cannot
-	 * check, which is the whole reason the scheme name is generated rather than dropped.
+	 * The requirements are the document's, verbatim: `[{ BearerAuth: [] }]`. Satisfying any one of them
+	 * authorises; every scheme within one must be satisfied together. This app knows how to satisfy
+	 * `BearerAuth` and refuses anything else rather than waving through a scheme it cannot check, which
+	 * is the whole reason the scheme name is generated rather than dropped.
 	 */
 	authorize: (requirements) => async (c, next) => {
-		// ⚠️ Match the PREFIX, not the remainder: `replace` on a non-bearer header is a no-op, so a
+		// Match the PREFIX, not the remainder: `replace` on a non-bearer header is a no-op, so a
 		// `Basic abc` header left a non-empty string and sailed through the first version of this.
 		const bearer = /^Bearer\s+(\S+)$/i.exec(c.req.header("authorization") ?? "")?.[1];
 		const satisfied = requirements.some((requirement) =>
@@ -36,12 +32,13 @@ export const deps: RouteDeps = {
 		return undefined;
 	},
 
+	/** Whatever this returns is the `ctx` every handler receives, and its type is inferred from here. */
 	context: (c, authentication) => {
 		const requestId = c.req.header("x-request-id") ?? crypto.randomUUID();
-		if (authentication === "none") return { subject: "anonymous", requestId } satisfies Ctx;
+		if (authentication === "none") return { subject: "anonymous", requestId };
 		const token = (c.req.header("authorization") ?? "").replace(/^Bearer\s+/i, "");
 		if (token === "") return null;
-		return { subject: token, requestId } satisfies Ctx;
+		return { subject: token, requestId };
 	},
 
 	noContext: (c) => c.json({ code: "unauthenticated", detail: "no caller could be established" }, 401),
@@ -51,21 +48,4 @@ export const deps: RouteDeps = {
 
 	invalid: (result, c) =>
 		result.success ? undefined : c.json({ code: "invalid_request", detail: "see errors" }, 400),
-
-	/**
-	 * ⚠️ **The arm is chosen from what the DOCUMENT declares**, not guessed from the value's shape.
-	 * `armFor` reads the emitted `Responses` array, including `4XX` and `default`, so a failure lands
-	 * on the status the contract promises rather than a convention this file invented.
-	 */
-	respond: (c, arms, result) => {
-		if (isFailure(result)) {
-			const arm = armFor(arms, 400) ?? arms.find((a) => a.status !== 200);
-			const status = Number(arm?.status ?? 400);
-			return c.json(result.failure, (Number.isFinite(status) ? status : 400) as 400);
-		}
-		const success = arms.find((arm) => Number(arm.status) < 400) ?? arms[0];
-		const status = Number(success?.status ?? 200);
-		if (success?.schema === undefined) return new Response(null, { status: status || 204 });
-		return c.json(result as never, (status || 200) as 200);
-	},
 };

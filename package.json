@@ -20,13 +20,13 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250109.0",
-		"@typespec/compiler": "1.15.0",
-		"@typespec/http": "1.15.0",
-		"@typespec/openapi": "1.15.0",
-		"@typespec/openapi3": "1.15.0",
+		"@typespec/compiler": "1.16.0",
+		"@typespec/http": "1.16.0",
+		"@typespec/openapi": "1.16.0",
+		"@typespec/openapi3": "1.16.0",
 		"typescript": "~7.0.2",
 		"typespec-hono": "^0.21.0",
-		"typespec-openapi-document": "^0.4.0",
+		"typespec-openapi-document": "^0.5.0",
 		"wrangler": "^4.42.0"
 	},
 	"description": "A Cloudflare Worker built entirely from a TypeSpec definition by the three emitters."

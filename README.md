@@ -11,9 +11,9 @@ https://ledger-acceptance.bison-digital.workers.dev
 
 | | |
 | --- | --- |
-| written by hand | `main.tsp`, `src/runtime.ts`, `src/deps.ts`, `src/index.ts` — 4 files |
-| generated, never edited | `src/generated/app.gen.ts`, `schemas.gen.ts`, `document.gen.ts` |
-| bundle | 664.91 KiB raw, **106.38 KiB gzipped** — against a 3 MB free-plan limit |
+| written by hand | `main.tsp`, `src/env.ts`, `src/deps.ts`, `src/index.ts`, 4 files |
+| generated, never edited | `src/generated/app.gen.ts`, `runtime.gen.ts`, `schemas.gen.ts`, `document.gen.ts` |
+| bundle | 846.25 KiB raw, **136.79 KiB gzipped**, against a 3 MB free-plan limit |
 | worker startup | **13 ms** — against a 1 s budget |
 | operations | 9, across 3 sub-apps plus an unauthenticated one |
 
@@ -44,7 +44,7 @@ pnpm deploy       # wrangler deploy
 
 ## What you write, and why it cannot be generated
 
-`src/deps.ts` is the whole of it. Six functions, each one a decision the document does not contain:
+`src/deps.ts` is the whole of it. Five functions, each one a decision the document does not contain:
 
 | | the document says | your application says |
 | --- | --- | --- |
@@ -53,11 +53,34 @@ pnpm deploy       # wrangler deploy
 | `noContext` | — | what to answer when there isn't one |
 | `notAcceptable` | which media types are offered | what to answer when none match |
 | `invalid` | the schema | what a validation failure looks like on the wire |
-| `respond` | every status arm and its schema | which arm this result is |
 
-Everything else — which validator applies to which target, how a numeric path parameter is decoded,
-which status each arm answers, when a body is `form` rather than `json`, when it is bytes rather than
-text — is generated, because the document determines it.
+Everything else, which validator applies to which target, how a numeric path parameter is decoded,
+when a body is `form` rather than `json`, when it is bytes rather than text, and which status and body
+each response is served with, is generated, because the document determines it.
+
+### A handler returns any response its operation declares
+
+`Accounts_read` declares `Account | Problem`, so a missing account is the `404` the document publishes,
+returned rather than thrown:
+
+```ts
+Accounts_read: (_ctx, input) => {
+  const account = accounts.get(input.accountId);
+  return account === undefined
+    ? { status: 404, body: { code: "not_found", detail: `no account ${input.accountId}` } }
+    : { status: 200, body: account };
+},
+```
+
+A status the operation does not declare, or the wrong body for a status, does not compile. What is served
+is the body parsed against the schema the document publishes for that status, and the typed client in
+`src/client.ts` narrows the body by `response.status`.
+
+### The environment and the caller are yours, and nothing is substituted
+
+`src/env.ts` adds this Worker's bindings and variables to the `AppEnv` the generated server mounts on, by
+augmenting it, and declares the `Caller` that `deps.context` returns. Every handler receives that
+`Caller` as `ctx`, inferred from `deps` rather than declared in a copy of the runtime.
 
 ### `authorize` gets the requirements verbatim
 
@@ -121,9 +144,13 @@ x-route header                              /api/v1/accounts/:accountId   ← us
 
 ## Notes for anyone wiring this up
 
-**`handlersFor` is deliberately unannotated.** Annotating it widens the value to the generated
-`Operations` interface, and the surplus-key check evaporates — a handler for an operation the spec no
-longer declares would then compile forever against a route nobody mounts. Leave it inferred.
+**The handler object uses `satisfies Operations<Caller>`, not an annotation.** `satisfies` keeps each
+`status` a literal, which is what selects the response it belongs to, and leaves the value unwidened, so
+the surplus-key check still refuses a handler for an operation the spec no longer declares. An
+annotation widens it and the check evaporates.
+
+**A response the document does not permit reaches `app.onError`**, as `ResponseContractError` or
+`UndeclaredStatusError`. `src/index.ts` answers it with a 500, because it is the service's own fault.
 
 **Middleware goes before `registerRoutes`.** Hono applies middleware only to routes registered after
 it. Registering it afterwards does not error; it just never runs.
