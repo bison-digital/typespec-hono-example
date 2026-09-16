@@ -25,7 +25,7 @@
 		"@typespec/openapi": "1.16.0",
 		"@typespec/openapi3": "1.16.0",
 		"typescript": "~7.0.2",
-		"typespec-hono": "^0.21.0",
+		"typespec-hono": "^0.23.0",
 		"typespec-openapi-document": "^0.5.0",
 		"wrangler": "^4.42.0"
 	},

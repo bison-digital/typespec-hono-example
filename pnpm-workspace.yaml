@@ -1,17 +1,13 @@
-# The unreleased response contract, developed against the sibling checkouts. Removed, with this
-# branch rebased onto the published versions, as a step of the release that publishes them.
-overrides:
-  typespec-hono: "link:../typespec-hono"
-  typespec-http-zod: "link:../typespec-http-zod"
-
 # Freshly published versions are younger than the minimumReleaseAge policy, which refuses them at
 # install. These are deliberate: they are the versions this example exists to demonstrate.
 minimumReleaseAgeExclude:
   - zod@4.5.2
   - typespec-hono@0.21.0
   - typespec-hono@0.22.0
+  - typespec-hono@0.23.0
   - typespec-http-zod@0.24.0
   - typespec-http-zod@0.25.0
+  - typespec-http-zod@0.26.0
   - typespec-openapi-document@0.4.0
   - typespec-openapi-document@0.5.0
 
