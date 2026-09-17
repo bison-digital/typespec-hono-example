@@ -14,7 +14,7 @@ https://ledger-acceptance.bison-digital.workers.dev
 | written by hand | `main.tsp`, `src/env.ts`, `src/deps.ts`, `src/index.ts`, 4 files |
 | generated, never edited | `src/generated/app.gen.ts`, `runtime.gen.ts`, `schemas.gen.ts`, `document.gen.ts` |
 | bundle | 846.25 KiB raw, **136.79 KiB gzipped**, against a 3 MB free-plan limit |
-| worker startup | **13 ms** — against a 1 s budget |
+| worker startup | **13 ms** - against a 1 s budget |
 | operations | 9, across 3 sub-apps plus an unauthenticated one |
 
 ## What it is for
@@ -33,7 +33,7 @@ answer is four files, and three of them are small.
 
 ```sh
 pnpm install
-pnpm generate     # tsp compile . — writes src/generated/
+pnpm generate     # tsp compile . - writes src/generated/
 pnpm typecheck    # the generated code and your handlers, checked together
 pnpm dev          # wrangler dev
 pnpm deploy       # wrangler deploy
@@ -50,7 +50,7 @@ pnpm deploy       # wrangler deploy
 | --- | --- | --- |
 | `authorize` | *which* schemes and scopes an operation demands | whether this caller satisfies them |
 | `context` | whether a caller is required | who the caller is |
-| `noContext` | — | what to answer when there isn't one |
+| `noContext` | - | what to answer when there isn't one |
 | `notAcceptable` | which media types are offered | what to answer when none match |
 | `invalid` | the schema | what a validation failure looks like on the wire |
 
@@ -85,7 +85,7 @@ augmenting it, and declares the `Caller` that `deps.context` returns. Every hand
 ### `authorize` gets the requirements verbatim
 
 `@useAuth(BearerAuth)` reaches OpenAPI as `security: [{ "BearerAuth": [] }]`, and that is exactly what
-the handler receives — a list of alternatives, each a map of scheme name to its scopes. Satisfying any
+the handler receives - a list of alternatives, each a map of scheme name to its scopes. Satisfying any
 **one** authorises; every scheme **within** one must be satisfied together. A flat list of scopes could
 not tell those apart.
 
@@ -111,14 +111,14 @@ serve a bearer-only route to a cookie, and nothing would notice.
 `main.tsp` is not a tour. Every construct in it is there because it is something a real definition asks
 for **and** something that has broken one of these emitters:
 
-- a **numeric path parameter** — `@path accountId: int64` arrives as text and must be decoded, or every
+- a **numeric path parameter** - `@path accountId: int64` arrives as text and must be decoded, or every
   conformant caller is refused;
-- **numeric and boolean query parameters** — same decode, different target;
-- **`multipart/form-data`** — whose `boundary` parameter a literal content-type check once refused;
-- **a raw binary body** — `application/octet-stream`, which `c.req.text()` silently corrupted. The live
+- **numeric and boolean query parameters** - same decode, different target;
+- **`multipart/form-data`** - whose `boundary` parameter a literal content-type check once refused;
+- **a raw binary body** - `application/octet-stream`, which `c.req.text()` silently corrupted. The live
   worker is checked with 11 bytes that are not valid UTF-8, and returns all 11;
-- **a scoped surface beside `@useAuth(NoAuth)`** — so the gate is graded in both directions;
-- **`@server("/api/v1")`** — an OpenAPI path is relative to its server, so a router mounted at the root
+- **a scoped surface beside `@useAuth(NoAuth)`** - so the gate is graded in both directions;
+- **`@server("/api/v1")`** - an OpenAPI path is relative to its server, so a router mounted at the root
   answers 404 to every client generated from the same document;
 - **a bodyless 204**, **a 201**, **`@error` arms**, **pagination**, and **content negotiation**.
 
@@ -130,16 +130,16 @@ Not against a harness, and not against `wrangler dev`:
 servers[0].url in the emitted document      /api/v1
 GET  /api/v1/accounts        Bearer         200
 GET  /api/v1/accounts        none           401
-GET  /api/v1/accounts        Basic          401     ← undeclared scheme refused
-GET  /accounts               unprefixed     404     ← the base path is real
+GET  /api/v1/accounts        Basic          401     <- undeclared scheme refused
+GET  /accounts               unprefixed     404     <- the base path is real
 GET  /api/v1/health          NoAuth         200
 POST /api/v1/accounts        bad body       400
 POST /api/v1/accounts        good body      201
 DEL  /api/v1/accounts/7                     204
-POST …/statements/raw        11 bad bytes   {"bytes":11}   ← nothing was decoded
-POST …/statements            multipart      {"accepted":true}
-POST …/statements            no reference   400
-x-route header                              /api/v1/accounts/:accountId   ← usable as a span name
+POST .../statements/raw        11 bad bytes   {"bytes":11}   <- nothing was decoded
+POST .../statements            multipart      {"accepted":true}
+POST .../statements            no reference   400
+x-route header                              /api/v1/accounts/:accountId   <- usable as a span name
 ```
 
 ## Notes for anyone wiring this up
@@ -155,10 +155,10 @@ annotation widens it and the check evaporates.
 **Middleware goes before `registerRoutes`.** Hono applies middleware only to routes registered after
 it. Registering it afterwards does not error; it just never runs.
 
-**`registerRoutes` returns the chained value.** That return is what `hc<typeof routes>` reads — assign
+**`registerRoutes` returns the chained value.** That return is what `hc<typeof routes>` reads - assign
 it and export its type, or the RPC client is empty.
 
-**The root is yours.** The spec declares no operation at `/`, correctly — it is not part of the
+**The root is yours.** The spec declares no operation at `/`, correctly - it is not part of the
 contract. `src/index.ts` redirects it to the documentation, because an API that 404s at its own root
 reads as broken.
 

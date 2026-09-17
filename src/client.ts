@@ -1,11 +1,11 @@
 /**
- * ⚠️ **The route names carry the document's base path** — `client.api.v1.accounts`, not
+ * **The route names carry the document's base path** - `client.api.v1.accounts`, not
  * `client.accounts`. `@server("/api/v1")` means the document publishes `/api/v1/accounts`, the
  * generated server mounts there, and the RPC surface follows. All three agree by construction.
  *
  * A typed client for this service, derived from the same spec that generated the server.
  *
- * ⚠️ **`typeof routes`, the value `registerRoutes` returns** — not the `Hono` instance passed in.
+ * **`typeof routes`, the value `registerRoutes` returns** - not the `Hono` instance passed in.
  * `hc` reads the `Schema` type Hono accumulates through the chain; the bare instance carries none.
  */
 import { hc } from "hono/client";
@@ -39,11 +39,11 @@ export async function listEntries(id: string): Promise<unknown> {
 }
 
 export async function refusesUndeclaredRoute(): Promise<unknown> {
-	// @ts-expect-error — the service declares no `/ledgers`, and the client must know it.
+	// @ts-expect-error - the service declares no `/ledgers`, and the client must know it.
 	return client.api.v1.ledgers.$get();
 }
 
 export async function refusesAWrongParamShape(): Promise<unknown> {
-	// @ts-expect-error — `param` is required for this route; omitting it must not compile.
+	// @ts-expect-error - `param` is required for this route; omitting it must not compile.
 	return client.api.v1.accounts[":accountId"].$get({});
 }

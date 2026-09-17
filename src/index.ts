@@ -5,7 +5,8 @@
  * are the whole of what an application writes.
  */
 import { Hono } from "hono";
-import { RegExpRouter } from "hono/router/reg-exp-router";
+import { bodyLimit } from "hono/body-limit";
+import { secureHeaders } from "hono/secure-headers";
 import { swaggerUI } from "@hono/swagger-ui";
 import { Scalar } from "@scalar/hono-api-reference";
 import { registerRoutes, type Operations } from "./generated/app.gen.js";
@@ -109,17 +110,41 @@ const handlers = {
 	Health_check: () => ({ status: 200, body: { status: "ok", version: "0.1.0" } }),
 } satisfies Operations<Caller>;
 
-const app = new Hono<AppEnv>({ router: new RegExpRouter() });
+/**
+ * **The default router**, which is `SmartRouter([RegExpRouter, TrieRouter])`.
+ *
+ * A bare `RegExpRouter` is faster and cannot mount every route set a valid spec produces: a static
+ * segment beside a path parameter at the same position, `/accounts/summary` next to
+ * `/accounts/{accountId}`, makes it throw inside `registerRoutes` at module scope, so the Worker
+ * never starts. `tsp compile` says whether this spec is one it can hold, with
+ * `regexp-router-unsupported`. It is silent for this spec today, and one added operation would
+ * change that, so the default is what this example teaches.
+ */
+const app = new Hono<AppEnv>();
 
-// Middleware BEFORE registerRoutes — Hono applies it only to routes registered after it.
+// Middleware BEFORE registerRoutes - Hono applies it only to routes registered after it.
+
+/**
+ * **Neither of these is generated, and neither can be.** The document states no maximum body size
+ * and says nothing about which headers a response should carry, so they are the application's.
+ * Without a limit a generated route buffers, parses and validates whatever arrives.
+ */
+app.use(secureHeaders());
+app.use(
+	bodyLimit({
+		maxSize: 1024 * 1024,
+		onError: (c) => c.json({ code: "too_large", detail: "body exceeds 1 MiB" }, 413),
+	}),
+);
+
 app.use(async (c, next) => {
 	await next();
 	c.header("x-route", c.req.routePath);
 });
 
 /**
- * ⚠️ **The root is the first thing anyone tries, and an API that 404s there reads as broken.** The
- * spec declares no operation at `/` — correctly, it is not part of the contract — so this is the
+ * **The root is the first thing anyone tries, and an API that 404s there reads as broken.** The
+ * spec declares no operation at `/` - correctly, it is not part of the contract - so this is the
  * application's to provide, and pointing it at the documentation is the useful answer.
  */
 app.get("/", (c) => c.redirect("/docs"));

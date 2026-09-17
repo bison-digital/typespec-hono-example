@@ -49,7 +49,7 @@ interface Accounts {
   /** Numeric query parameters, which arrive as text and must be decoded. */
   @get list(@query limit?: int32, @query cursor?: string, @query activeOnly?: boolean): Page<Account>;
 
-  /** A numeric PATH parameter — the shape that refused every conformant caller. */
+  /** A numeric PATH parameter - the shape that refused every conformant caller. */
   @get read(@path accountId: int64): Account | Problem;
 
   @post create(@body body: Account): {
@@ -71,7 +71,7 @@ interface Entries {
 }
 
 model StatementUpload {
-  /** A binary part — the library emits `z.unknown()`, and the handler must receive it intact. */
+  /** A binary part - the library emits `z.unknown()`, and the handler must receive it intact. */
   file: HttpPart<File>;
   reference: HttpPart<string>;
 }
