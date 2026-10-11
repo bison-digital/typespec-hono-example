@@ -13,7 +13,7 @@ https://ledger-acceptance.bison-digital.workers.dev
 | --- | --- |
 | written by hand | `main.tsp`, `src/env.ts`, `src/deps.ts`, `src/index.ts`, 4 files |
 | generated, never edited | `src/generated/app.gen.ts`, `runtime.gen.ts`, `schemas.gen.ts`, `document.gen.ts` |
-| bundle | 846.25 KiB raw, **136.79 KiB gzipped**, against a 3 MB free-plan limit |
+| bundle | 895.52 KiB raw, **148.35 KiB gzipped**, against a 3 MB free-plan limit |
 | worker startup | **13 ms** - against a 1 s budget |
 | operations | 9, across 3 sub-apps plus an unauthenticated one |
 

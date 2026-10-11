@@ -54,8 +54,9 @@ jobs:
       - name: Install the newest published emitters
         run: |
           pnpm update --latest \
-            typespec-hono typespec-openapi-document zod hono @hono/zod-validator
-          node -e "for (const p of ['typespec-hono','typespec-openapi-document','zod','hono']) \
+            typespec-hono typespec-openapi-document zod hono @hono/zod-validator \
+            @typespec/compiler @typespec/http @typespec/openapi @typespec/openapi3
+          node -e "for (const p of ['typespec-hono','typespec-openapi-document','@typespec/compiler','zod','hono']) \
             console.log(p, require('./node_modules/'+p+'/package.json').version)"
 
       - run: pnpm generate

@@ -1,4 +1,7 @@
 # The whole configuration a consumer needs. Nothing here is a workaround.
+linter:
+  extends:
+    - "typespec-hono/recommended"
 emit:
   - typespec-hono
   - "@typespec/openapi3"

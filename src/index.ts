@@ -66,14 +66,14 @@ const handlers = {
 		},
 	}),
 
+	/**
+	 * **The body is under its own name, beside the path's `accountId`**, because `Entry` declares an
+	 * `accountId` too: merged, the body's would replace the path's. The entry is echoed as posted, on
+	 * the account the path names.
+	 */
 	Entries_add: (_ctx, input) => ({
 		status: 200,
-		body: {
-			id: input.id,
-			accountId: input.accountId,
-			amountMinor: input.amountMinor,
-			postedAt: input.postedAt,
-		},
+		body: { ...input.body, accountId: input.accountId },
 	}),
 
 	/** The multipart parts arrive parsed; the binary one is a file because the document says so. */
@@ -116,9 +116,10 @@ const handlers = {
  * A bare `RegExpRouter` is faster and cannot mount every route set a valid spec produces: a static
  * segment beside a path parameter at the same position, `/accounts/summary` next to
  * `/accounts/{accountId}`, makes it throw inside `registerRoutes` at module scope, so the Worker
- * never starts. `tsp compile` says whether this spec is one it can hold, with
- * `regexp-router-unsupported`. It is silent for this spec today, and one added operation would
- * change that, so the default is what this example teaches.
+ * never starts. The linter rule `typespec-hono/regexp-router-unsupported`, which `tspconfig.yaml`
+ * enables through `typespec-hono/recommended`, says whether this spec is one it can hold. It is
+ * silent for this spec today, and one added operation would change that, so the default is what
+ * this example teaches.
  */
 const app = new Hono<AppEnv>();
 
