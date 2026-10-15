@@ -43,8 +43,8 @@ importers:
         specifier: ~7.0.2
         version: 7.0.2
       typespec-hono:
-        specifier: ^0.25.0
-        version: 0.25.0(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(zod@4.6.5)
+        specifier: ^0.26.0
+        version: 0.26.0(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(zod@4.6.5)
       typespec-openapi-document:
         specifier: ^0.6.0
         version: 0.6.0(@typespec/compiler@1.17.0)(@typespec/openapi3@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))))
@@ -1023,8 +1023,8 @@ packages:
     engines: {node: '>=16.20.0'}
     hasBin: true
 
-  typespec-hono@0.25.0:
-    resolution: {integrity: sha512-UlNuSGYkGTLjddWWxXX4yp/bpy7aC7f4l+WAsNGiX6gWgUo0p6iIaHe7p7JHqarNpKrjEBfzy7kGzznMQ1PjsA==}
+  typespec-hono@0.26.0:
+    resolution: {integrity: sha512-8WOMw5ec0ZXC2e0ifucT31cBUhFIKlqatTOalggXvuCJ9Wxfgv0k9hjwWFXBWtM1uuyosow6F88fb3u4lukaXA==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@hono/zod-validator': ^0.8.0 || ^0.9.0
@@ -1034,8 +1034,8 @@ packages:
       hono: ^4.13.5
       zod: ^4.5.0
 
-  typespec-http-zod@0.28.0:
-    resolution: {integrity: sha512-TVXfRNQcm8kpF3zp4FhzJ6QJ+JIoJXk1KF4oFLvYi9m9YR5ftJCEfHpftOVWQka3lGvFIiZA86LPDJnns6hxtQ==}
+  typespec-http-zod@0.29.0:
+    resolution: {integrity: sha512-klT0pJB8bfqfklrsliNKadITgJGqMFBDNEbu+/av4LJUeuN5Yel9yTZGbzmNo6lqZghTjrDFRNWFssmq+YjFBQ==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@typespec/compiler': ^1.15.0
@@ -1912,20 +1912,20 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  typespec-hono@0.25.0(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(zod@4.6.5):
+  typespec-hono@0.26.0(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(zod@4.6.5):
     dependencies:
       '@hono/zod-validator': 0.9.0(hono@4.13.8)(zod@4.6.5)
       '@typespec/compiler': 1.17.0
       '@typespec/http': 1.17.0(@typespec/compiler@1.17.0)
       '@typespec/openapi': 1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))
       hono: 4.13.8
-      typespec-http-zod: 0.28.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(zod@4.6.5)
+      typespec-http-zod: 0.29.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(zod@4.6.5)
       zod: 4.6.5
     transitivePeerDependencies:
       - '@typespec/streams'
       - '@typespec/versioning'
 
-  typespec-http-zod@0.28.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(zod@4.6.5):
+  typespec-http-zod@0.29.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(zod@4.6.5):
     dependencies:
       '@typespec/compiler': 1.17.0
       '@typespec/http': 1.17.0(@typespec/compiler@1.17.0)
