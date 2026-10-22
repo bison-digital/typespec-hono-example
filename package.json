@@ -27,8 +27,8 @@
 		"@typespec/openapi": "1.17.0",
 		"@typespec/openapi3": "1.17.0",
 		"typescript": "~7.0.2",
-		"typespec-hono": "^0.31.0",
-		"typespec-openapi-document": "^0.6.0",
+		"typespec-hono": "^0.31.1",
+		"typespec-openapi-document": "^0.6.1",
 		"wrangler": "^4.42.0"
 	},
 	"description": "A Cloudflare Worker built entirely from a TypeSpec definition by the three emitters."

@@ -46,11 +46,11 @@ importers:
         specifier: ~7.0.2
         version: 7.0.2
       typespec-hono:
-        specifier: ^0.31.0
-        version: 0.31.0(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(secure-json-parse@4.1.1)(zod@4.6.5)
+        specifier: ^0.31.1
+        version: 0.31.1(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(secure-json-parse@4.1.1)(zod@4.6.5)
       typespec-openapi-document:
-        specifier: ^0.6.0
-        version: 0.6.0(@typespec/compiler@1.17.0)(@typespec/openapi3@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))))
+        specifier: ^0.6.1
+        version: 0.6.1(@typespec/compiler@1.17.0)(@typespec/openapi3@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))))
       wrangler:
         specifier: ^4.42.0
         version: 4.123.0(@cloudflare/workers-types@4.20260702.1)
@@ -1029,8 +1029,8 @@ packages:
     engines: {node: '>=16.20.0'}
     hasBin: true
 
-  typespec-hono@0.31.0:
-    resolution: {integrity: sha512-X1vNH6Z5sCJw6ngDHQFg+BZyMJTD2j4plC+0j0V0UVjR9IGFVaNFwZfXXzcNmCLfecHaHUYCi9yIBOxkrLy1uA==}
+  typespec-hono@0.31.1:
+    resolution: {integrity: sha512-JGVkWmgOWnOpIriGnFQqkTHe4qSkH6HTzdVUt+mCGBQPzHwYnrwFlFw5cUETJ5kFaLqzfD//DT6bHlwQMJKClQ==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@hono/zod-validator': ^0.8.0 || ^0.9.0
@@ -1057,8 +1057,8 @@ packages:
       '@typespec/versioning':
         optional: true
 
-  typespec-openapi-document@0.6.0:
-    resolution: {integrity: sha512-hY5JKQ0/3zxlF6Qnoaad3JgQ1AzKV2NJG5N5qj6pSwd1wKDqci0zLAsgov5sQBP1UNCFgtEu90/FJy4oGIlNVA==}
+  typespec-openapi-document@0.6.1:
+    resolution: {integrity: sha512-M5vqnNoOiWsVAuliuckd+bcqKETiuJ9iKgP7SKbVDHQkNI+396tU59hIXs92YG9qiLEMUDfrlY1BSktRrE6KgQ==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@typespec/compiler': ^1.17.0
@@ -1921,7 +1921,7 @@ snapshots:
       '@typescript/typescript-win32-arm64': 7.0.2
       '@typescript/typescript-win32-x64': 7.0.2
 
-  typespec-hono@0.31.0(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(secure-json-parse@4.1.1)(zod@4.6.5):
+  typespec-hono@0.31.1(@hono/zod-validator@0.9.0(hono@4.13.8)(zod@4.6.5))(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))(hono@4.13.8)(secure-json-parse@4.1.1)(zod@4.6.5):
     dependencies:
       '@hono/zod-validator': 0.9.0(hono@4.13.8)(zod@4.6.5)
       '@typespec/compiler': 1.17.0
@@ -1943,7 +1943,7 @@ snapshots:
       redos-detector: 6.1.4
       zod: 4.6.5
 
-  typespec-openapi-document@0.6.0(@typespec/compiler@1.17.0)(@typespec/openapi3@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))):
+  typespec-openapi-document@0.6.1(@typespec/compiler@1.17.0)(@typespec/openapi3@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))):
     dependencies:
       '@typespec/compiler': 1.17.0
       '@typespec/openapi3': 1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0))(@typespec/openapi@1.17.0(@typespec/compiler@1.17.0)(@typespec/http@1.17.0(@typespec/compiler@1.17.0)))
