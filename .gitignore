@@ -1,0 +1,8 @@
+node_modules/
+# Emitted on every `pnpm generate`. Committing it would let a stale copy compile against a spec
+# that no longer says the same thing, which is the failure this project exists to rule out.
+src/generated/
+openapi/
+.bundle/
+.wrangler/
+*.log
